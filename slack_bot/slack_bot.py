@@ -1,0 +1,14 @@
+
+class SlackBot:
+    def __init__(self, bot_name, client):
+        self.client = client
+        self.bot_name = bot_name
+
+    def _get_users(self):
+        api_call = self.client.api_call('users.list')
+        return api_call.get('members') if api_call.get('ok') else []
+
+    @property
+    def id(self):
+        for user in self._get_users():
+            return user.get('id') if user.get('name') == self.bot_name else None

@@ -4,6 +4,7 @@
 
 # Cache files
 .cache/
+__pycache__
 
 # Env variables
 .env
