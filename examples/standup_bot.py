@@ -63,6 +63,7 @@ def standup():
         send('Thanks! Good Luck!')
     send('That was all! Thanks for participate of this wonderful standup')
 
+
 COMMAND_HANDLERS = {
     'standup': standup,
 }

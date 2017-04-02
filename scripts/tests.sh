@@ -10,8 +10,19 @@ function create_docker_image_if_does_not_exist() {
   fi
 }
 
-function tests() {
+function unit_tests() {
   create_docker_image_if_does_not_exist
   docker run --rm -v $(pwd):/slack-bot nicolastrres/slack-bot py.test tests
   echo_in_green "Unit tests passed"
+}
+
+function flake8() {
+  create_docker_image_if_does_not_exist
+  docker run --rm -v $(pwd):/slack-bot nicolastrres/slack-bot flake8 .
+  echo_in_green "Flake8 passed"
+}
+
+function tests() {
+  unit_tests
+  flake8
 }

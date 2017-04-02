@@ -3,7 +3,7 @@ from unittest.mock import Mock
 from slack_bot import SlackClientWrapper
 
 
-class SlackClientTest(unittest.TestCase):
+class SlackClientWrapperTest(unittest.TestCase):
     def setUp(self):
         self.slack_lib_mocked = Mock()
 
