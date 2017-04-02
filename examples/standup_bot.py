@@ -53,15 +53,21 @@ def standup():
     send('Welcome to our standup!')
     for user_id in user_ids:
         user = slack_wrapper.get_user(user_id)
-        send('Hi %s is your turn!' % user.get('name'))
-        send('1. What did you do yesterday?')
-        wait_for_user_updates(user)
-        send('2. What are you working on today?')
-        wait_for_user_updates(user)
-        send('3. Do you have a blocker?')
-        wait_for_user_updates(user)
-        send('Thanks! Good Luck!')
+        get_user_update(user)
     send('That was all! Thanks for participate of this wonderful standup')
+
+
+def get_user_update(user):
+    questions = [
+        '1. What did you do yesterday?',
+        '2. What are you working on today?',
+        '3. Do you have a blocker?'
+    ]
+    send('Hi %s is your turn!' % user.get('name'))
+    for question in questions:
+        send(question)
+        wait_for_user_updates(user)
+    send('Thanks! Good Luck!')
 
 
 COMMAND_HANDLERS = {
