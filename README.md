@@ -3,6 +3,9 @@
 Allows to create Slack bots and add features to them very easily.
 It uses the [python-slackclient](https://github.com/slackapi/python-slackclient) and creates a wrapper for it.
 
+# Installation
+` pip install slack-bot-wrapper `
+
 
 # Example
 

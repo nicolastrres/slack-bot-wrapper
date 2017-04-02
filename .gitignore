@@ -1,4 +1,7 @@
 
+dist
+slack_bot_wrapper.egg-info
+
 # PyCharm files
 .idea
 
