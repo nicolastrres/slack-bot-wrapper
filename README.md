@@ -27,8 +27,8 @@ def hello():
     )
 
 
-# Commands that the bot understand, it is a dict with the name of the command as key and the function that will be executed
-# as value.
+# Commands that the bot understand, it is a dict with the name of the command as key and the 
+# function that will be executed as value.
 COMMAND_HANDLERS = {
     'hello': hello,
     'bye': bye
