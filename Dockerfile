@@ -8,5 +8,5 @@ WORKDIR $APP_HOME
 COPY requirements.txt        $APP_HOME
 RUN pip install -r requirements.txt
 
-COPY slack_bot             $APP_HOME/slack_bot/
+COPY slack_bot            $APP_HOME/slack_bot/
 COPY tests                $APP_HOME/tests/
