@@ -56,4 +56,4 @@ if __name__ == '__main__':
     slack_bot.start()
 ```
 
-For a more complex examples take a look to the examples folder.
+For a more complex examples take a look to the [examples folder](https://github.com/nicolastrres/slack-bot-wrapper/tree/master/examples).
