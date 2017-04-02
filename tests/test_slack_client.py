@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import Mock
-
-from slack_bot.slack_client_wrapper import SlackClientWrapper
+from slack_bot import SlackClientWrapper
 
 
 class SlackClientTest(unittest.TestCase):

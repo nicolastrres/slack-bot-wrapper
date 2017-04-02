@@ -2,7 +2,7 @@ import unittest
 from functools import partial
 from unittest.mock import Mock
 
-from slack_bot.slack_bot import SlackBot
+from slack_bot import SlackBot
 
 
 class SlackBotTest(unittest.TestCase):

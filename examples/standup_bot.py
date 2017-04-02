@@ -1,15 +1,13 @@
 import logging
 import os
-
 from dotenv import load_dotenv
 from slackclient import SlackClient
 
-from slack_bot.slack_bot import SlackBot
-from slack_bot.slack_client_wrapper import SlackClientWrapper
+from slack_bot import SlackBot
+from slack_bot import SlackClientWrapper
 
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 load_dotenv(dotenv_path)
-
 logging.basicConfig(format='[%(levelname)s] [%(name)s] - %(message)s',
                     level=logging.INFO)
 
@@ -35,7 +33,7 @@ def users_of_messages(events):
     return users
 
 
-def wait_for_messages_of_user_in_turn_in_standup(user):
+def wait_for_user_updates(user):
     events = slack_wrapper.read()
     while user.get('id') not in users_of_messages(events):
         events = slack_wrapper.read()
@@ -57,16 +55,16 @@ def standup():
         user = slack_wrapper.get_user(user_id)
         send('Hi %s is your turn!' % user.get('name'))
         send('1. What did you do yesterday?')
-        wait_for_messages_of_user_in_turn_in_standup(user)
+        wait_for_user_updates(user)
         send('2. What are you working on today?')
-        wait_for_messages_of_user_in_turn_in_standup(user)
+        wait_for_user_updates(user)
         send('3. Do you have a blocker?')
-        wait_for_messages_of_user_in_turn_in_standup(user)
+        wait_for_user_updates(user)
         send('Thanks! Good Luck!')
     send('That was all! Thanks for participate of this wonderful standup')
 
 COMMAND_HANDLERS = {
-    'standup': standup
+    'standup': standup,
 }
 
 
