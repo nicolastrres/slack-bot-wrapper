@@ -100,3 +100,20 @@ class SlackBotTest(unittest.TestCase):
             commands_handlers=command_handlers
         )
         self.assertEqual(slack_bot.commands, ['another_command', 'help'])
+
+    def test_parse_output(self):
+        self.slack_client_mocked.get_users.return_value = self.users
+        output = [{
+            'text': '<@some-id> something',
+            'channel': 'some-channel'
+        }]
+
+        slack_bot = SlackBot(
+            'bot-name',
+            self.slack_client_mocked
+        )
+
+        actual_text, actual_channel = slack_bot.parse_output(output)
+
+        self.assertEqual(actual_channel, 'some-channel')
+        self.assertEqual(actual_text, 'something')
