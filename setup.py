@@ -1,7 +1,7 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(name='slack-bot-wrapper',
-      version='0.0.1',
+      version='0.0.2',
       description='Slack Bot Wrapper',
       long_description='Allows to create Slack bots and add features to them '
                        'very easily.',
@@ -16,6 +16,6 @@ setup(name='slack-bot-wrapper',
       author_email='nicolastrres@gmail.com',
       license='MIT',
       keywords='slack bot communication automate tasks',
-      packages=find_packages(exclude=['scripts', 'tests']),
+      packages=['slack_bot'],
       install_requires=['slackclient'],
       zip_safe=False)
