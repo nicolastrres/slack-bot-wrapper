@@ -47,6 +47,19 @@ class SlackClientWrapper:
                               'getting users!' % api_call.get('error'))
             return []
 
+    def user_is_active(self, user_id):
+        api_call = self.slack_client.api_call(
+            'users.getPresence',
+            user=user_id
+        )
+        if api_call.get('ok'):
+            return api_call.get('presence')
+        else:
+            self.logger.error('The error %s was raised while '
+                              'verifying if user is'
+                              ' active!' % api_call.get('error'))
+            return False
+
     def get_channel_id(self, channel_name):
         api_call = self.slack_client.api_call(
             'channels.list',

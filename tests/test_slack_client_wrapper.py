@@ -39,6 +39,18 @@ class SlackClientWrapperTest(unittest.TestCase):
 
         self.slack_client.api_call.assert_called_once_with('users.list')
 
+    def test_verify_if_user_is_active(self):
+        slack_wrapper = SlackClientWrapper(
+            slack_lib=self.slack_lib_mocked,
+            slack_token=123
+        )
+        slack_wrapper.user_is_active('some-id')
+
+        self.slack_client.api_call.assert_called_once_with(
+            'users.getPresence',
+            user='some-id'
+        )
+
     def test_connect(self):
         slack_wrapper = SlackClientWrapper(
             slack_lib=self.slack_lib_mocked,
