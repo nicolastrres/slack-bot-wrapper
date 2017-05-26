@@ -77,4 +77,4 @@ class SlackClientWrapper:
         return self.slack_client.rtm_connect()
 
     def read(self):
-        return self.slack_lib.rtm_read()
+        return self.slack_client.rtm_read()
