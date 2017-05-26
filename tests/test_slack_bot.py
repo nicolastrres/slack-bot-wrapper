@@ -113,7 +113,7 @@ class SlackBotTest(unittest.TestCase):
             self.slack_client_mocked
         )
 
-        actual_text, actual_channel = slack_bot.parse_output(output)
+        actual_text, actual_channel = slack_bot._parse_output(output)
 
         self.assertEqual(actual_channel, 'some-channel')
         self.assertEqual(actual_text, 'something')

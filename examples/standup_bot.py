@@ -1,7 +1,6 @@
 import logging
 import os
 from dotenv import load_dotenv
-from slackclient import SlackClient
 
 from slack_bot import SlackBot
 from slack_bot import SlackClientWrapper
@@ -11,8 +10,7 @@ load_dotenv(dotenv_path)
 logging.basicConfig(format='[%(levelname)s] [%(name)s] - %(message)s',
                     level=logging.INFO)
 
-slack_client = SlackClient(token=os.environ.get('SLACK_BOT_TOKEN'))
-slack_wrapper = SlackClientWrapper(slack_lib=slack_client)
+slack_wrapper = SlackClientWrapper(slack_token=os.environ.get('SLACK_BOT_TOKEN'))
 CHANNEL = os.environ.get('STANDUP_CHANNEL')
 
 

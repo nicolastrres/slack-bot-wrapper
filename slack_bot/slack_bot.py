@@ -52,7 +52,7 @@ class SlackBot:
     def _channel_in_output(output):
         return output['channel']
 
-    def parse_output(self, output_list):
+    def _parse_output(self, output_list):
         if output_list and len(output_list) > 0:
             for output in output_list:
                 if output and 'text' in output and self.at_bot \
@@ -67,7 +67,7 @@ class SlackBot:
         if self.client.connect():
             self.logger.info('Connected and running!')
             while True:
-                command, channel = self.parse_output(self.client.read())
+                command, channel = self._parse_output(self.client.read())
                 if command and channel:
                     self.handle_command(command, channel)
                 time.sleep(READ_WEBSOCKET_DELAY)
