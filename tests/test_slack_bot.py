@@ -101,9 +101,9 @@ class SlackBotTest(unittest.TestCase):
         )
         self.assertEqual(slack_bot.commands, ['another_command', 'help'])
 
-    def test_parse_output(self):
+    def test_parse_event(self):
         self.slack_client_mocked.get_users.return_value = self.users
-        output = [{
+        event = [{
             'text': '<@some-id> something',
             'channel': 'some-channel'
         }]
@@ -113,7 +113,7 @@ class SlackBotTest(unittest.TestCase):
             self.slack_client_mocked
         )
 
-        actual_text, actual_channel = slack_bot._parse_output(output)
+        actual_text, actual_channel = slack_bot._parse_events(event)
 
         self.assertEqual(actual_channel, 'some-channel')
         self.assertEqual(actual_text, 'something')

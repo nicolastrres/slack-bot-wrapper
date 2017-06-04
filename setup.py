@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='slack-bot-wrapper',
-      version='0.0.5',
+      version='0.0.6',
       description='Slack Bot Wrapper',
       long_description='Allows to create Slack bots and add features to them '
                        'very easily.',

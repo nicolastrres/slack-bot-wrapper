@@ -9,10 +9,23 @@ class SlackClientWrapper:
         self.logger = logging.getLogger('SlackClientWrapper')
 
     def post_message(self, channel, message, as_user):
+        """
+        Send a message to a specific channel
+        :param channel:
+        :param message:
+        :param as_user:
+        :return: None
+        """
         self.slack_client.api_call('chat.postMessage', channel=channel,
-                                    text=message, as_user=as_user)
+                                   text=message, as_user=as_user)
 
     def get_user(self, user_id):
+        """
+        Get Slack user
+        :param user_id:
+        :return: User
+        :type: dict
+        """
         api_call = self.slack_client.api_call(
             'users.info',
             user=user_id
@@ -24,7 +37,29 @@ class SlackClientWrapper:
                               'getting user information!' %
                               api_call.get('error'))
 
+    def get_active_users(self, channel):
+        """
+        Get Slack active users of channel
+        :param channel:
+        :return: Users
+        :type: list of dicts
+        """
+        user_ids = [
+            user for user
+            in self.get_channel_users(channel)
+            if self.get_user_presence(user) == 'active'
+            ]
+        return [
+            self.get_user(user_id)
+            for user_id in user_ids
+            ]
+
     def get_users(self):
+        """
+        Get Slack users
+        :return: Users
+        :type: list of dicts
+        """
         self.logger.info('Getting users...')
         api_call = self.slack_client.api_call('users.list')
         if api_call.get('ok'):
@@ -34,11 +69,17 @@ class SlackClientWrapper:
                               'getting users!' % api_call.get('error'))
             return []
 
-    def get_channel_users(self, channel_name):
-        self.logger.info('Getting users of channel %s...' % channel_name)
+    def get_channel_users(self, channel):
+        """
+        Get Slack Channel Users
+        :param channel:
+        :return: Users
+        :type: list of dicts
+        """
+        self.logger.info('Getting users of channel %s...' % channel)
         api_call = self.slack_client.api_call(
             'channels.info',
-            channel=self.get_channel_id(channel_name)
+            channel=self.get_channel_id(channel)
         )
         if api_call.get('ok'):
             return api_call.get('channel').get('members')
@@ -48,6 +89,12 @@ class SlackClientWrapper:
             return []
 
     def get_user_presence(self, user_id):
+        """
+        Get Presence of user
+        :param user_id:
+        :return: Presence
+        :type: str
+        """
         api_call = self.slack_client.api_call(
             'users.getPresence',
             user=user_id
@@ -61,6 +108,12 @@ class SlackClientWrapper:
             return False
 
     def get_channel_id(self, channel_name):
+        """
+        Get channel id
+        :param channel_name:
+        :return: Channel Id
+        :type: str
+        """
         api_call = self.slack_client.api_call(
             'channels.list',
             exclude_archived=1
