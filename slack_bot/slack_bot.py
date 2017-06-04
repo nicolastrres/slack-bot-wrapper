@@ -8,7 +8,7 @@ class SlackBot:
         self.client = client
         self.bot_name = bot_name
         self.commands_handlers = commands_handlers or {}
-        self.logger = logging.getLogger('[%sbot]' % self.bot_name)
+        self.logger = logging.getLogger('%sBot' % self.bot_name)
 
     def _unknown_command(self, channel):
         commands = ', '.join(self.commands)
@@ -68,11 +68,12 @@ class SlackBot:
         return output['channel']
 
     def _parse_events(self, events_list):
-        if events_list:
+        if events_list and len(events_list) > 0:
             for event in events_list:
-                if 'text' in event and self.at_bot in event['text']:
+                if event and 'text' in event and self.at_bot in event['text']:
                     return self._text_in_output(event), \
                            self._channel_in_output(event)
+        return None, None
 
     def start(self):
         """
