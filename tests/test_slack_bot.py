@@ -47,12 +47,14 @@ class SlackBotTest(unittest.TestCase):
         )
 
         slack_bot.handle_command('help', 'some_channel')
-        self.assertTrue(mocked_command.called)
+        mocked_command.assert_called_once_with(
+            channel='some_channel',
+        )
 
     def test_handle_command_calling_right_handler_with_args(self):
         mocked_command = Mock()
         command_handlers = {
-            'help': partial(mocked_command, 'some-arg'),
+            'help': partial(mocked_command, arg='some-arg'),
             'another_command': Mock()
         }
 
@@ -63,7 +65,10 @@ class SlackBotTest(unittest.TestCase):
         )
 
         slack_bot.handle_command('help', 'some_channel')
-        mocked_command.assert_called_once_with('some-arg')
+        mocked_command.assert_called_once_with(
+            channel='some_channel',
+            arg='some-arg'
+        )
 
     def test_handle_command_show_available_commands_when_not_existent_command(
             self

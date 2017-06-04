@@ -56,7 +56,7 @@ class SlackBot:
         for existent_command in self.commands:
             if command_received.startswith(existent_command):
                 command_found = True
-                self.commands_handlers[existent_command]()
+                self.commands_handlers[existent_command](channel=channel)
         if not command_found:
             self._unknown_command(channel)
 
