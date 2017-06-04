@@ -37,16 +37,16 @@ class SlackClientWrapper:
                               'getting user information!' %
                               api_call.get('error'))
 
-    def get_active_users(self, channel):
+    def get_active_users(self, channel_id):
         """
         Get Slack active users of channel
-        :param channel:
+        :param channel_id:
         :return: Users
         :type: list of dicts
         """
         user_ids = [
             user for user
-            in self.get_channel_users(channel)
+            in self.get_channel_users(channel_id)
             if self.get_user_presence(user) == 'active'
             ]
         return [
@@ -69,17 +69,17 @@ class SlackClientWrapper:
                               'getting users!' % api_call.get('error'))
             return []
 
-    def get_channel_users(self, channel):
+    def get_channel_users(self, channel_id):
         """
         Get Slack Channel Users
-        :param channel:
+        :param channel_id:
         :return: Users
         :type: list of dicts
         """
-        self.logger.info('Getting users of channel %s...' % channel)
+        self.logger.info('Getting users of channel %s...' % channel_id)
         api_call = self.slack_client.api_call(
             'channels.info',
-            channel=self.get_channel_id(channel)
+            channel=channel_id
         )
         if api_call.get('ok'):
             return api_call.get('channel').get('members')
