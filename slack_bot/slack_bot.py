@@ -9,6 +9,7 @@ class SlackBot:
         self.bot_name = bot_name
         self.commands_handlers = commands_handlers or {}
         self.logger = logging.getLogger('%sBot' % self.bot_name)
+        self.at_bot = self._at_bot()
 
     def _unknown_command(self, channel):
         commands = ', '.join(self.commands)
@@ -42,8 +43,7 @@ class SlackBot:
                 return user.get('id')
         return None
 
-    @property
-    def at_bot(self):
+    def _at_bot(self):
         """
         At bot <@bot_id>
         :return: @bot_id

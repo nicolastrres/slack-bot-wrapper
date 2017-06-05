@@ -6,6 +6,7 @@ from slack_bot import SlackBot
 
 
 class SlackBotTest(unittest.TestCase):
+
     def setUp(self):
         self.users = [
             {'id': 'some-id', 'name': 'bot-name'},
@@ -25,13 +26,6 @@ class SlackBotTest(unittest.TestCase):
         slack_bot = SlackBot('wrong-bot-name', self.slack_client_mocked)
 
         self.assertIsNone(slack_bot.id)
-
-    def test_at_bot(self):
-        self.slack_client_mocked.get_users.return_value = self.users
-
-        slack_bot = SlackBot('bot-name', self.slack_client_mocked)
-
-        self.assertEqual(slack_bot.at_bot, '<@some-id>')
 
     def test_handle_command_calling_right_handler(self):
         mocked_command = Mock()
